@@ -3,6 +3,10 @@
 A responsive, dependency-free personal portfolio built with HTML, CSS, and
 JavaScript.
 
+## Live website
+
+<https://kdeepakkartik-cloud.github.io/deepakkartik-portfolio/>
+
 ## Run locally
 
 ```bash
