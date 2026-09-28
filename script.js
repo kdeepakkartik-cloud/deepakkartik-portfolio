@@ -98,3 +98,109 @@ const counterObserver = new IntersectionObserver(
 );
 
 counters.forEach((counter) => counterObserver.observe(counter));
+
+const repositoriesContainer = document.querySelector("#github-repositories");
+const githubProfileUrl = "https://github.com/kdeepakkartik-cloud";
+
+const renderRepositoryStatus = (message, includeProfileLink = false) => {
+  repositoriesContainer.replaceChildren();
+
+  const status = document.createElement("p");
+  status.className = "repo-status";
+  status.append(document.createTextNode(message));
+
+  if (includeProfileLink) {
+    status.append(document.createTextNode(" "));
+    const link = document.createElement("a");
+    link.href = githubProfileUrl;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = "View repositories on GitHub.";
+    status.append(link);
+  }
+
+  repositoriesContainer.append(status);
+};
+
+const renderRepositories = (repositories) => {
+  repositoriesContainer.replaceChildren();
+
+  repositories.forEach((repository) => {
+    const card = document.createElement("a");
+    card.className = "repo-card";
+    card.href = repository.html_url;
+    card.target = "_blank";
+    card.rel = "noreferrer";
+    card.setAttribute("aria-label", `View ${repository.name} on GitHub`);
+
+    const details = document.createElement("p");
+    const updated = new Intl.DateTimeFormat("en", {
+      month: "short",
+      year: "numeric",
+    }).format(new Date(repository.updated_at));
+    details.textContent = `${repository.language || "Repository"} · Updated ${updated}`;
+
+    const name = document.createElement("h3");
+    name.textContent = repository.name;
+
+    const description = document.createElement("span");
+    description.textContent =
+      repository.description || "No repository description provided.";
+
+    const meta = document.createElement("div");
+    meta.className = "repo-meta";
+
+    const stars = document.createElement("span");
+    stars.textContent = `★ ${repository.stargazers_count}`;
+
+    const action = document.createElement("strong");
+    action.textContent = "View repository ↗";
+
+    meta.append(stars, action);
+    card.append(details, name, description, meta);
+    repositoriesContainer.append(card);
+  });
+};
+
+const loadRepositories = async () => {
+  renderRepositoryStatus("Loading public repositories…");
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/users/kdeepakkartik-cloud/repos?type=owner&sort=updated&per_page=6",
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`GitHub API returned ${response.status}`);
+    }
+
+    const repositories = (await response.json()).filter(
+      (repository) => !repository.archived,
+    );
+
+    if (repositories.length === 0) {
+      renderRepositoryStatus(
+        "No public repositories are available yet.",
+        true,
+      );
+      return;
+    }
+
+    renderRepositories(repositories);
+  } catch (error) {
+    console.error("Unable to load GitHub repositories.", error);
+    renderRepositoryStatus(
+      "Repositories could not be loaded automatically.",
+      true,
+    );
+  } finally {
+    repositoriesContainer.setAttribute("aria-busy", "false");
+  }
+};
+
+loadRepositories();
