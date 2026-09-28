@@ -11,8 +11,9 @@
   --dark: #102330;
   --dark-soft: #183443;
   --white: #ffffff;
-  --display: "Manrope", sans-serif;
-  --mono: "DM Mono", monospace;
+  --display: "Space Grotesk", sans-serif;
+  --body: "IBM Plex Sans", sans-serif;
+  --mono: "IBM Plex Mono", monospace;
   --shadow: 0 22px 60px rgba(18, 32, 47, 0.12);
 }
 
@@ -28,7 +29,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -122,7 +123,9 @@ svg {
 }
 
 .brand strong {
+  font-family: var(--display);
   font-size: 0.94rem;
+  font-weight: 600;
   line-height: 1.25;
 }
 
@@ -310,6 +313,8 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: var(--display);
+  font-weight: 600;
   line-height: 1.08;
 }
 
@@ -317,15 +322,16 @@ h1 {
   max-width: 1030px;
   margin-bottom: 0;
   font-size: clamp(3.2rem, 7.4vw, 7.4rem);
-  letter-spacing: -0.07em;
+  letter-spacing: -0.045em;
 }
 
 h1 em,
 .contact h2 em {
   display: block;
   color: var(--teal);
-  font-family: Georgia, serif;
-  font-weight: 400;
+  font-family: var(--display);
+  font-style: normal;
+  font-weight: 500;
 }
 
 .hero-bottom {
@@ -354,8 +360,10 @@ h1 em,
   gap: 0.75rem;
   padding: 0.85rem 1.25rem;
   border-radius: 100px;
+  font-family: var(--display);
   font-size: 0.82rem;
-  font-weight: 800;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   transition:
     transform 150ms ease,
     background 150ms ease;
@@ -385,8 +393,9 @@ h1 em,
 
 .text-link {
   color: var(--ink);
+  font-family: var(--display);
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 700;
   border-bottom: 1px solid var(--ink);
 }
 
@@ -522,7 +531,7 @@ h1 em,
 .section-intro h2 {
   margin-bottom: 0;
   font-size: clamp(2.6rem, 5vw, 5rem);
-  letter-spacing: -0.06em;
+  letter-spacing: -0.04em;
 }
 
 .profile {
@@ -546,8 +555,9 @@ h1 em,
 
 .profile-copy .large-copy {
   color: var(--ink);
+  font-family: var(--display);
   font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.45;
 }
 
@@ -569,8 +579,10 @@ h1 em,
   display: block;
   margin-bottom: 2rem;
   color: var(--teal-dark);
+  font-family: var(--display);
   font-size: clamp(2.2rem, 4vw, 3.8rem);
-  letter-spacing: -0.06em;
+  font-weight: 600;
+  letter-spacing: -0.04em;
 }
 
 .profile-facts p {
@@ -1233,7 +1245,7 @@ h1 em,
   max-width: 990px;
   margin-bottom: 4rem;
   font-size: clamp(3rem, 7vw, 6.8rem);
-  letter-spacing: -0.07em;
+  letter-spacing: -0.045em;
 }
 
 .contact h2 em {
