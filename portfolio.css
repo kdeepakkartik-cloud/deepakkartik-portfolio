@@ -430,63 +430,105 @@ h1 em,
 
 .hero-circuit {
   position: absolute;
-  right: 7%;
-  bottom: 11%;
-  width: 310px;
-  height: 220px;
-  opacity: 0.42;
+  right: -3%;
+  bottom: 4%;
+  width: min(58vw, 780px);
+  opacity: 0.46;
   pointer-events: none;
 }
 
-.trace {
-  position: absolute;
-  border-color: var(--teal);
-  border-style: solid;
+.pcb-board {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-.trace-a {
-  inset: 12px 50px 90px 0;
-  border-width: 1px 1px 0 0;
+.pcb-traces path,
+.pcb-signals path,
+.pcb-chip path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
-.trace-b {
-  inset: 80px 0 25px 100px;
-  border-width: 0 0 1px 1px;
+.pcb-traces path {
+  stroke: rgba(8, 125, 115, 0.55);
+  stroke-width: 2;
 }
 
-.trace-c {
-  width: 190px;
-  height: 1px;
-  left: 20px;
-  top: 105px;
-  background: var(--orange);
-  border: 0;
-  transform: rotate(-25deg);
+.pcb-signal {
+  stroke: var(--orange);
+  stroke-width: 5;
+  stroke-dasharray: 0.055 0.945;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 6px rgba(213, 98, 56, 0.8));
+  animation: signal-flow 3.8s linear infinite;
 }
 
-.node {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: var(--paper);
-  border: 2px solid var(--teal);
-  border-radius: 50%;
+.pcb-signal-b {
+  animation-delay: -1.9s;
+  animation-duration: 4.4s;
 }
 
-.node-a {
-  top: 6px;
-  right: 44px;
+.pcb-signal-c {
+  stroke: var(--teal);
+  filter: drop-shadow(0 0 6px rgba(8, 125, 115, 0.85));
+  animation-delay: -0.8s;
+  animation-direction: reverse;
+  animation-duration: 4.1s;
 }
 
-.node-b {
-  right: -6px;
-  bottom: 19px;
+.pcb-signal-d {
+  animation-delay: -2.7s;
+  animation-direction: reverse;
+  animation-duration: 4.8s;
 }
 
-.node-c {
-  left: 12px;
-  top: 92px;
-  border-color: var(--orange);
+.pcb-signal-e {
+  stroke: var(--gold);
+  filter: drop-shadow(0 0 6px rgba(217, 164, 65, 0.8));
+  animation-delay: -1.2s;
+  animation-duration: 3.5s;
+}
+
+.pcb-pads circle {
+  fill: var(--paper);
+  stroke: var(--teal);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.pcb-chip rect {
+  fill: rgba(8, 95, 88, 0.08);
+  stroke: var(--teal-dark);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.pcb-chip path {
+  stroke: var(--teal-dark);
+  stroke-width: 2;
+}
+
+.pcb-chip-key {
+  fill: var(--orange);
+}
+
+.pcb-chip text {
+  fill: var(--teal-dark);
+  font-family: var(--mono);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+}
+
+.pcb-chip .pcb-chip-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
 }
 
 .marquee {
@@ -1326,6 +1368,12 @@ h1 em,
   }
 }
 
+@keyframes signal-flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 @keyframes marquee {
   to {
     transform: translateX(-50%);
@@ -1738,5 +1786,10 @@ h1 em,
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .pcb-signal {
+    animation: none;
+    stroke-dashoffset: 0.55;
   }
 }
